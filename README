@@ -1,9 +1,18 @@
-SphinxQL for Kohana 3.2
+SphinxQL for Kohana
 ===================
 
 Overview
 --------
-This is sphinx plugin for kohana 3.2
+
+I wrote this because the other Kohana Sphinx plugin on github was reliant on
+the pure PHP sphinx API and was discontinued. This plugin, as suggested by its
+name, uses the SphinxQL interface. This means there's less dependancies as it
+uses the built-in MySQL interface from PHP. _NOTE_: to use this, MySQL server
+does _NOT_ need to be installed on the server. Only the MySQL client library for
+PHP is required. As the MySQL interface in PHP is built as an extension, it's
+faster than the regular Sphinx API as well, you can check the benchmarks out
+here: http://sphinxsearch.com/blog/2010/04/25/sphinxapi-vs-sphinxql-benchmark/
+
 Requirements
 ------------
 

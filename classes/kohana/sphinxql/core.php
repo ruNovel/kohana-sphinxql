@@ -75,7 +75,9 @@ class Kohana_SphinxQL_Core {
 		if (!is_a($query, 'SphinxQL_Query') && !is_string($query)) { return false; }
 		while (($names = array_keys(self::$_handles)) && count($names) && ($name = $names[intval(rand(0, count($names)-1))])) {
 			$client = self::$_handles[$name];
-			$return = $client->query((string)$query)->fetch_all();
+            $result = $client->query((string)$query);
+			$return['data'] = $client->query((string)$query)->fetch_all();
+            $return['total'] = $client->total_find();
 			if (is_array($return)) { return $return; } else { unset(self::$_handles[$name]); }
 		}
 		return false;

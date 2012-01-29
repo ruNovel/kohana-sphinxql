@@ -73,9 +73,21 @@ class Kohana_SphinxQL_Client {
 	 */
 	public function query($query) {
 		$this->_result = false;
-		if (is_string($query) && $this->connect()) { $this->_result = mysql_query($query, $this->_handle); }
+		if (is_string($query) && $this->connect()) {
+            @$this->_result = mysql_query($query, $this->_handle);
+        }
 		return $this;
 	}
+
+    public function total_find() {
+      $result = mysql_query("SHOW META");
+      if($result) {
+        $result = mysql_fetch_assoc($result);
+        return intval($result['Value']);
+      } else {
+        return 0;
+      }
+    }
 
 	/**
 	 * Fetch one row of the result set
