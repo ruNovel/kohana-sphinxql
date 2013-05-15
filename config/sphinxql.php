@@ -26,7 +26,7 @@ return array(
 			//'sphinx_second' => '123.45.67.89:8765',
 
 			// ...or!
-			'my_only_server' => '127.0.0.1:9312',
+			// 'my_only_server' => '127.0.0.1:9312',
 		),
     ),
 );
