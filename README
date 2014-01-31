@@ -17,7 +17,7 @@ Requirements
 ------------
 
 Sphinx >= 0.9.9-rc2
-PHP MySQL client library (php5-mysql in debian)
+PHP >= 5.5.0 with MySQLi
 
 Installation
 ------------
