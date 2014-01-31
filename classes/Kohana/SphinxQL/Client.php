@@ -57,7 +57,8 @@ class Kohana_SphinxQL_Client {
 		if ($this->_failed) { return false; }
 		if ($this->_server === false) { return false; }
 		try {
-			$this->_handle = mysql_connect($this->_server);
+			$server_param = explode(':',$this->_server);
+            		$this->_handle = new MySQLi($server_param[0], null, null, null, $server_param[1], null);
 		} catch (Exception $e) {
 			$this->_failed = true;
 			return false;
@@ -74,15 +75,15 @@ class Kohana_SphinxQL_Client {
 	public function query($query) {
 		$this->_result = false;
 		if (is_string($query) && $this->connect()) {
-            @$this->_result = mysql_query($query, $this->_handle);
+            @$this->_result = mysqli_query($this->_handle,$query);
         }
 		return $this;
 	}
 
     public function total_find() {
-      $result = mysql_query("SHOW META");
+      $result = mysqli_query($this->_handle,"SHOW META");
       if($result) {
-        $result = mysql_fetch_assoc($result);
+        $result = mysqli_fetch_assoc($result);
         return intval($result['Value']);
       } else {
         return 0;
@@ -96,7 +97,7 @@ class Kohana_SphinxQL_Client {
 	 */
 	public function fetch_row() {
 		if ($this->_result === false) { return false; }
-		if ($arr = mysql_fetch_assoc($this->_result)) { return $arr; }
+		if ($arr = mysqli_fetch_assoc($this->_result)) { return $arr; }
 		return false;
 	}
 
@@ -108,7 +109,7 @@ class Kohana_SphinxQL_Client {
 	public function fetch_all() {
 		if ($this->_result === false) { return false; }
 		$ret = array();
-		while ($arr = mysql_fetch_assoc($this->_result)) { $ret[] = $arr; }
+		while ($arr = mysqli_fetch_assoc($this->_result)) { $ret[] = $arr; }
 		return $ret;
 	}
 }
